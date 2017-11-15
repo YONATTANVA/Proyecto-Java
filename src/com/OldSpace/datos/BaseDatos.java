@@ -475,7 +475,7 @@ public class BaseDatos {
     }
     
     
-    public ArrayList<Articulo> listarArticulos(){
+    public ArrayList<Articulo> listarArticulos(String filtro){
         
         ArrayList<Articulo> listaArticulos = new ArrayList<Articulo>();
         try {
@@ -483,9 +483,10 @@ public class BaseDatos {
             
             conex = DriverManager.getConnection("jdbc:postgresql://localhost:5432/DBVentas", "postgres", "123");
             
-            sql = "SELECT * FROM articulo ORDER BY nombre_art ASC";
-            st = conex.prepareStatement(sql);
+            sql = "SELECT * FROM articulo WHERE nombre_art LIKE '%" + filtro + "%' ORDER BY nombre_art ASC";
             
+            st = conex.prepareStatement(sql);
+            //st.setString(1, filtro);
             rs = st.executeQuery();
             
             while(rs.next()){
