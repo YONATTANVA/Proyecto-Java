@@ -5,12 +5,14 @@
  */
 package com.OldSpace.gui;
 
+import dao.ProductoDAO;
 import java.util.ArrayList;
 import java.util.Locale;
 import javax.swing.JDialog;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import modelos.Producto;
 
 /**
  *
@@ -34,14 +36,12 @@ public class InventarioFrame extends javax.swing.JInternalFrame {
     private void generarColumnasTabla(){
         modeloTabla.addColumn("Id");
         modeloTabla.addColumn("Nombre");
-        modeloTabla.addColumn("Unidad");
-        modeloTabla.addColumn("Precio Compra");
-        modeloTabla.addColumn("Precio Venta");
+        modeloTabla.addColumn("Precio");
         modeloTabla.addColumn("Stock");
     }
     
     private void cargarTabla(){
-       
+        
     }
     
     private void limpiarTabla(){
