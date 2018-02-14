@@ -5,8 +5,6 @@
  */
 package com.OldSpace.gui;
 
-import com.OldSpace.datos.BaseDatos;
-import com.OldSpace.pojo.Articulo;
 import java.util.ArrayList;
 import java.util.Locale;
 import javax.swing.JDialog;
@@ -25,8 +23,7 @@ public class InventarioFrame extends javax.swing.JInternalFrame {
      */
     
     DefaultTableModel modeloTabla = new DefaultTableModel();
-    BaseDatos bd = new BaseDatos();
-    
+
     
     public InventarioFrame() {
         initComponents();
@@ -44,21 +41,7 @@ public class InventarioFrame extends javax.swing.JInternalFrame {
     }
     
     private void cargarTabla(){
-        String filtro = txtSearchArticle.getText();
-        ArrayList<Articulo> listaArticulos = bd.listarArticulos(filtro);
-        int cantidadProductos = listaArticulos.size();
-        //System.out.println(cantidadProductos);
-        modeloTabla.setRowCount(cantidadProductos);
-        for(int  i = 0; i < cantidadProductos; i++){
-            Articulo articulo = listaArticulos.get(i);
-            modeloTabla.setValueAt(articulo, i, 0);
-            modeloTabla.setValueAt(articulo.getNombre(), i, 1);
-            modeloTabla.setValueAt(articulo.getUnidadMedida(), i, 2);
-            modeloTabla.setValueAt(articulo.getPrecioCompra(), i, 3);
-            modeloTabla.setValueAt(articulo.getPrecioVenta(), i, 4);
-            modeloTabla.setValueAt(articulo.getStock(), i, 5);
-        }
-        
+       
     }
     
     private void limpiarTabla(){
@@ -291,12 +274,8 @@ public class InventarioFrame extends javax.swing.JInternalFrame {
     private void tblListInveMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblListInveMouseClicked
         
         int fila = tblListInve.getSelectedRow();
-        Articulo articulo = (Articulo)modeloTabla.getValueAt(fila, 0);
         //JOptionPane.showMessageDialog(this, modeloTabla.getValueAt(fila, 0));
         
-        txtIdInve.setText(articulo.toString());
-        txtNameInve.setText(articulo.getNombre());
-        txtStockInve.setText(String.valueOf(articulo.getStock()));
         
     }//GEN-LAST:event_tblListInveMouseClicked
 
@@ -306,8 +285,6 @@ public class InventarioFrame extends javax.swing.JInternalFrame {
         int stockActual = Integer.parseInt(txtStockInve.getText());
         int nuevoStock = Integer.parseInt(txtNuevoStock.getText());
         int stockTotal = stockActual + nuevoStock;
-        bd.actualizarStockArticulo(stockTotal, id);
-        cargarTabla();
     }//GEN-LAST:event_btnAddStockActionPerformed
 
     private void txtSearchArticleKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSearchArticleKeyReleased

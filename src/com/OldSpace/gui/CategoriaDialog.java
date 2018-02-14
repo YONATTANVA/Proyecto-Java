@@ -5,8 +5,6 @@
  */
 package com.OldSpace.gui;
 
-import com.OldSpace.datos.BaseDatos;
-import com.OldSpace.pojo.Categoria;
 import javax.swing.JOptionPane;
 
 /**
@@ -19,7 +17,6 @@ public class CategoriaDialog extends javax.swing.JDialog {
      * Creates new form CategoriaDialog
      */
     
-    BaseDatos bd = new BaseDatos();
     
     public CategoriaDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -127,10 +124,6 @@ public class CategoriaDialog extends javax.swing.JDialog {
         int idCat = Integer.parseInt(txtIdCat.getText());
         String nombre = txtNameCat.getText();
         String detalle = txtDescriptionCat.getText();
-        
-        Categoria categoria = new Categoria(idCat, nombre, detalle);
-        
-        bd.insertarCategoria(categoria);
         
         JOptionPane.showMessageDialog(this, "Se agrego una categoria con exito");
         this.dispose();

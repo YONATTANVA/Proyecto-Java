@@ -5,8 +5,6 @@
  */
 package com.OldSpace.gui;
 
-import com.OldSpace.datos.BaseDatos;
-import com.OldSpace.pojo.Proveedor;
 import javax.swing.JOptionPane;
 
 /**
@@ -18,8 +16,6 @@ public class ProveedorDialog extends javax.swing.JDialog {
     /**
      * Creates new form ProveedorDialog
      */
-    
-    BaseDatos bd = new BaseDatos();
     
     public ProveedorDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -156,9 +152,6 @@ public class ProveedorDialog extends javax.swing.JDialog {
         String correo = txtMailProvi.getText();
         String nombreContacto = txtNameContacProvi.getText();
         
-        Proveedor proveedor = new Proveedor(idProv, nombre, direccion, telefono, correo, nombreContacto);
-        
-        bd.insertarProveedor(proveedor);
         
         JOptionPane.showMessageDialog(this, "Se agrego un proveedor con exito");
         this.dispose();

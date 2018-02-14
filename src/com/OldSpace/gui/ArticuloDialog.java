@@ -4,11 +4,6 @@
  * and open the template in the editor.
  */
 package com.OldSpace.gui;
-
-import com.OldSpace.datos.BaseDatos;
-import com.OldSpace.pojo.Articulo;
-import com.OldSpace.pojo.Categoria;
-import com.OldSpace.pojo.Proveedor;
 import java.awt.Image;
 import java.io.File;
 import java.io.FileInputStream;
@@ -29,32 +24,13 @@ public class ArticuloDialog extends javax.swing.JDialog {
     /**
      * Creates new form ProveedorDialog
      */
-    DefaultComboBoxModel<Categoria> modeloCategoria;
-    DefaultComboBoxModel<Proveedor> modeloProveedor;
-    BaseDatos bd;
     
     
     public ArticuloDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
-        modeloCategoria = new DefaultComboBoxModel<Categoria>();
-        modeloProveedor = new DefaultComboBoxModel<Proveedor>();
-        bd = new BaseDatos();
-        cargarCategorias();
-        cargarProveedores();
         initComponents();
     }
     
-    private void cargarCategorias(){
-        for( Categoria cat : bd.listarCategorias() ){
-            modeloCategoria.addElement(cat);
-        }
-    }
-    
-    private void cargarProveedores(){
-        for(Proveedor prove : bd.listarProveedores()){
-            modeloProveedor.addElement(prove);
-        }
-    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -80,10 +56,10 @@ public class ArticuloDialog extends javax.swing.JDialog {
         jLabel6 = new javax.swing.JLabel();
         txtPriceSellingAti = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
-        cbCategory = new javax.swing.JComboBox<>();
+        cbCategory = new javax.swing.JComboBox();
         btnNewCategory = new javax.swing.JButton();
         jLabel8 = new javax.swing.JLabel();
-        cbProvider = new javax.swing.JComboBox<>();
+        cbProvider = new javax.swing.JComboBox();
         btnNewProvider = new javax.swing.JButton();
         jLabel9 = new javax.swing.JLabel();
         txtStockArti = new javax.swing.JTextField();
@@ -114,13 +90,9 @@ public class ArticuloDialog extends javax.swing.JDialog {
 
         jLabel7.setText("Categoria");
 
-        cbCategory.setModel(modeloCategoria);
-
         btnNewCategory.setText("Agregar Categoria");
 
         jLabel8.setText("Proveedor");
-
-        cbProvider.setModel(modeloProveedor);
 
         btnNewProvider.setText("Agregar Proveedor");
 
@@ -311,27 +283,7 @@ public class ArticuloDialog extends javax.swing.JDialog {
     private void btnSaveArtiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveArtiActionPerformed
         // TODO add your handling code here:
         
-        if(archivoImagen != null){
         
-        int id = Integer.parseInt(txtIdArti.getText());
-        String nombre = txtNameArti.getText();
-        String descripcion = txtDescriptionArti.getText();
-        int stockRequerido = Integer.parseInt(txtStockMinArti.getText());
-        String unidadMedida = null;
-        double precioCompra = Double.parseDouble(txtPriceBuyingArti.getText());
-        double precioVenta = Double.parseDouble(txtPriceSellingAti.getText());
-        int stock = Integer.parseInt(txtStockArti.getText());
-        Categoria categoria = (Categoria)cbCategory.getSelectedItem();
-        Proveedor proveedor = (Proveedor)cbProvider.getSelectedItem();
-        
-        Articulo articulo = new Articulo(id,nombre, descripcion, archivoImagen, stockRequerido, unidadMedida, precioCompra, precioVenta, stock, categoria.getIdCategoria(), proveedor.getIdProveedor());
-        
-        bd.insertarArticulo(articulo);
-        JOptionPane.showMessageDialog(this, "Se agrego un articulo con exito");
-        this.dispose();
-        }else{
-            JOptionPane.showMessageDialog(this, "No se ha seleccionada una imagen");
-        }
     }//GEN-LAST:event_btnSaveArtiActionPerformed
 
     /**
@@ -382,8 +334,8 @@ public class ArticuloDialog extends javax.swing.JDialog {
     private javax.swing.JButton btnNewCategory;
     private javax.swing.JButton btnNewProvider;
     private javax.swing.JButton btnSaveArti;
-    private javax.swing.JComboBox<Categoria> cbCategory;
-    private javax.swing.JComboBox<Proveedor> cbProvider;
+    private javax.swing.JComboBox cbCategory;
+    private javax.swing.JComboBox cbProvider;
     private javax.swing.JComboBox<String> cbTypeStockAti;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
