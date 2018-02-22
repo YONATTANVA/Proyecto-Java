@@ -19,7 +19,7 @@ import com.OldSpace.modelos.pojos.Producto;
  *
  * @author YonattanVisita
  */
-public class DAOProductoImpl implements DAOProducto{
+public class DAOProductoImpl extends DAO implements DAOProducto{
     final String CONSULTAR_PRODUCTOS = "SELECT id_producto,nombre,precio,stock,categoria FROM consultar_productos(?,?,?)";
     final String CONSULTAR_PRODUCTOS_CATEGORIA = "SELECT id_producto,nombre,precio,stock,categoria FROM consultar_productos_categoria(?,?,?)";
     final String INSERTAR_PRODUCTO = "SELECT insertar_producto(?,?,?,?,?)";
@@ -66,7 +66,7 @@ public class DAOProductoImpl implements DAOProducto{
         List<Producto> productos = null;
         try {
             productos = new ArrayList<>();
-            cn = DAO.conectar();
+            cn = conectar();
             pst = cn.prepareStatement(CONSULTAR_PRODUCTOS);
             pst.setString(1, _filtro);
             pst.setShort(2, getPagina());
@@ -76,9 +76,9 @@ public class DAOProductoImpl implements DAOProducto{
                 productos.add(convertir(rs));
             }
         } catch (SQLException ex) {
-            System.out.println(ex.toString());
+            Personalizado.mostrarError(ex.toString());
         }finally{
-            DAO.cerrar(pst, rs, cn);
+            cerrar(pst, rs, cn);
         }
         return productos;
     }
@@ -93,7 +93,7 @@ public class DAOProductoImpl implements DAOProducto{
             producto.setStock(rs.getShort("stock"));
             producto.setCategoria(rs.getString("categoria"));
         } catch (SQLException ex) {
-            System.out.println(ex.toString());
+            Personalizado.mostrarError(ex.toString());
         }
         return producto;
     }
@@ -107,7 +107,7 @@ public class DAOProductoImpl implements DAOProducto{
     public short insertarProducto(Producto producto) {
         short id_producto = 0;
         try {
-            cn = DAO.conectar();
+            cn = conectar();
             pst = cn.prepareStatement(INSERTAR_PRODUCTO);
             pst.setString(1, producto.getNombre());
             pst.setFloat(2, producto.getPrecio());
@@ -121,7 +121,7 @@ public class DAOProductoImpl implements DAOProducto{
         } catch (SQLException ex) {
             Personalizado.mostrarError(ex.toString());
         }finally{
-            DAO.cerrar(pst, rs, cn);
+            cerrar(pst, rs, cn);
         }
         return id_producto;
     }

@@ -3,27 +3,24 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/yonat/Documents/NetBeansProjects/ProyectoJava/src/modelos/Cliente.java</file>
-            <file>file:/C:/Users/yonat/Documents/NetBeansProjects/ProyectoJava/src/modelos/Proveedor.java</file>
-            <file>file:/C:/Users/yonat/Documents/NetBeansProjects/ProyectoJava/src/modelos/Usuario.java</file>
-            <file>file:/C:/Users/yonat/Documents/NetBeansProjects/ProyectoJava/src/interfaces/DAOProducto.java</file>
-            <file>file:/C:/Users/yonat/Documents/NetBeansProjects/ProyectoJava/src/modelos/Compra.java</file>
-            <file>file:/C:/Users/yonat/Documents/NetBeansProjects/ProyectoJava/src/modelos/Venta.java</file>
-            <file>file:/C:/Users/yonat/Documents/NetBeansProjects/ProyectoJava/src/interfaces/DAOProveedor.java</file>
-            <file>file:/C:/Users/yonat/Documents/NetBeansProjects/ProyectoJava/src/modelos/FormaPago.java</file>
-            <file>file:/C:/Users/yonat/Documents/NetBeansProjects/ProyectoJava/src/modelos/Producto.java</file>
-            <file>file:/C:/Users/yonat/Documents/NetBeansProjects/ProyectoJava/src/modelos/Perfil.java</file>
-            <file>file:/C:/Users/yonat/Documents/NetBeansProjects/ProyectoJava/src/logicaGUI/Inventario.java</file>
-            <file>file:/C:/Users/yonat/Documents/NetBeansProjects/ProyectoJava/src/com/OldSpace/gui/ArticuloDialog.java</file>
-            <file>file:/C:/Users/yonat/Documents/NetBeansProjects/ProyectoJava/src/dao/DAO.java</file>
-            <file>file:/C:/Users/yonat/Documents/NetBeansProjects/ProyectoJava/src/interfaces/DAOCategoria.java</file>
-            <file>file:/C:/Users/yonat/Documents/NetBeansProjects/ProyectoJava/src/modelos/Estado.java</file>
-            <file>file:/C:/Users/yonat/Documents/NetBeansProjects/ProyectoJava/src/dao/DAOProveedorImpl.java</file>
-            <file>file:/C:/Users/yonat/Documents/NetBeansProjects/ProyectoJava/src/modelos/Categoria.java</file>
-            <file>file:/C:/Users/yonat/Documents/NetBeansProjects/ProyectoJava/src/com/OldSpace/gui/Principal.java</file>
-            <file>file:/C:/Users/yonat/Documents/NetBeansProjects/ProyectoJava/src/dao/DAOProductoImpl.java</file>
-            <file>file:/C:/Users/yonat/Documents/NetBeansProjects/ProyectoJava/src/com/OldSpace/gui/InventarioFrame.java</file>
-            <file>file:/C:/Users/yonat/Documents/NetBeansProjects/ProyectoJava/src/dao/DAOCategoriaImpl.java</file>
+            <file>file:/C:/Users/yonat/Documents/NetBeansProjects/ProyectoJava/src/com/OldSpace/modelos/dao/DAOCategoriaImpl.java</file>
+            <file>file:/C:/Users/yonat/Documents/NetBeansProjects/ProyectoJava/src/com/OldSpace/controlador/ControladorNuevoProveedor.java</file>
+            <file>file:/C:/Users/yonat/Documents/NetBeansProjects/ProyectoJava/src/sistema_ventas/Main.java</file>
+            <file>file:/C:/Users/yonat/Documents/NetBeansProjects/ProyectoJava/src/com/OldSpace/gui/dialog/NuevoProveedor.java</file>
+            <file>file:/C:/Users/yonat/Documents/NetBeansProjects/ProyectoJava/src/com/OldSpace/modelos/interfaces/DAOCategoria.java</file>
+            <file>file:/C:/Users/yonat/Documents/NetBeansProjects/ProyectoJava/src/com/OldSpace/gui/dialog/NuevaCategoria.java</file>
+            <file>file:/C:/Users/yonat/Documents/NetBeansProjects/ProyectoJava/src/com/OldSpace/controlador/ControladorInventario.java</file>
+            <file>file:/C:/Users/yonat/Documents/NetBeansProjects/ProyectoJava/src/com/OldSpace/controlador/ControladorLogin.java</file>
+            <file>file:/C:/Users/yonat/Documents/NetBeansProjects/ProyectoJava/src/com/OldSpace/controlador/ControladorNuevoProducto.java</file>
+            <file>file:/C:/Users/yonat/Documents/NetBeansProjects/ProyectoJava/src/com/OldSpace/modelos/dao/DAOProductoImpl.java</file>
+            <file>file:/C:/Users/yonat/Documents/NetBeansProjects/ProyectoJava/src/com/OldSpace/gui/frame/Principal.java</file>
+            <file>file:/C:/Users/yonat/Documents/NetBeansProjects/ProyectoJava/src/com/OldSpace/controlador/ControladorPrincipal.java</file>
+            <file>file:/C:/Users/yonat/Documents/NetBeansProjects/ProyectoJava/src/com/OldSpace/gui/internalFrame/Inventario.java</file>
+            <file>file:/C:/Users/yonat/Documents/NetBeansProjects/ProyectoJava/src/com/OldSpace/modelos/dao/DAO.java</file>
+            <file>file:/C:/Users/yonat/Documents/NetBeansProjects/ProyectoJava/src/com/OldSpace/modelos/interfaces/DAOProveedor.java</file>
+            <file>file:/C:/Users/yonat/Documents/NetBeansProjects/ProyectoJava/src/com/OldSpace/gui/dialog/NuevoProducto.java</file>
+            <file>file:/C:/Users/yonat/Documents/NetBeansProjects/ProyectoJava/src/com/OldSpace/controlador/ControladorCategoria.java</file>
+            <file>file:/C:/Users/yonat/Documents/NetBeansProjects/ProyectoJava/src/com/OldSpace/modelos/dao/DAOProveedorImpl.java</file>
         </group>
     </open-files>
 </project-private>

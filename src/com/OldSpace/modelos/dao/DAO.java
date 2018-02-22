@@ -5,6 +5,7 @@
  */
 package com.OldSpace.modelos.dao;
 
+import com.OldSpace.excepciones.Personalizado;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -18,23 +19,23 @@ import java.sql.SQLException;
  * @author YonattanVisita
  */
 public class DAO {
-    static String bd = "db_sistema_ventas";
-    static String server = "127.0.0.1:5432";
-    static String user = "postgres";
-    static String password = "123";
+    private String bd = "db_sistema_ventas";
+    private String server = "127.0.0.1:5432";
+    private String user = "postgres";
+    private String password = "123";
     
-    public static Connection conectar(){
+    public Connection conectar(){
         Connection cn = null;
         try {
             //Class.forName("org.postgresql.Driver");
             cn = DriverManager.getConnection("jdbc:postgresql://" + server + "/" + bd, user, password);
         } catch (SQLException ex) {
-            System.out.println("Error: " + ex.toString());
+            Personalizado.mostrarError(ex.toString());
         } 
         return cn;
     }
     
-    public static void cerrar(PreparedStatement pst, ResultSet rs, Connection cn){
+    public void cerrar(PreparedStatement pst, ResultSet rs, Connection cn){
         try {
             if(pst != null){
                 pst.close();
@@ -46,6 +47,7 @@ public class DAO {
                 cn.close();
             }
         } catch (Exception e) {
+            Personalizado.mostrarError(e.toString());
         }
     }
 }

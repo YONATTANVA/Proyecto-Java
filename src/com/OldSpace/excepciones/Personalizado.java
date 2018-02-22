@@ -22,6 +22,7 @@ public class Personalizado {
         mensaje.append("Se lanzo la siguien excepcion: ");
         mensaje.append(_mensaje);
         JOptionPane.showMessageDialog(null, mensaje);
+        
     }
     
 }

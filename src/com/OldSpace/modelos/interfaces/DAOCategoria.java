@@ -14,4 +14,6 @@ import com.OldSpace.modelos.pojos.Categoria;
  */
 public interface DAOCategoria {
     public abstract List<Categoria> listarCategorias();
+    
+    public abstract short insertarCategoria(Categoria categoria);
 }

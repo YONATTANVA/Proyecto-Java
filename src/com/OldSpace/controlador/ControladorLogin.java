@@ -7,6 +7,7 @@ package com.OldSpace.controlador;
 
 import com.OldSpace.gui.frame.Login;
 import com.OldSpace.excepciones.Personalizado;
+import com.OldSpace.gui.frame.Principal;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import com.OldSpace.modelos.interfaces.DAOUsuario;
@@ -28,7 +29,7 @@ public class ControladorLogin implements ActionListener{
         this.inicializarLogin();
     }
     
-    public void inicializarLogin(){
+    private void inicializarLogin(){
         this.vLogin.setVisible(true);
     }
     
@@ -43,7 +44,8 @@ public class ControladorLogin implements ActionListener{
         if(usuario != null){
             Personalizado.mostrarError("Se logeo con exito");
             this.vLogin.setVisible(false);
-            
+            Principal principal = new Principal();
+            ControladorPrincipal ctrPrincipal = new ControladorPrincipal(principal);
         }
     }
     

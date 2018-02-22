@@ -5,11 +5,6 @@
  */
 package com.OldSpace.gui.frame;
 
-import com.OldSpace.gui.internalFrame.InventarioFrame;
-import com.OldSpace.gui.internalFrame.VentaFrame;
-import com.OldSpace.modelos.dao.DAOProductoImpl;
-import com.OldSpace.modelos.interfaces.DAOProducto;
-
 /**
  *
  * @author YonattanVisita
@@ -19,9 +14,6 @@ public class Principal extends javax.swing.JFrame {
     /**
      * Creates new form Principal
      */
-    VentaFrame ventaFrame = null;
-    InventarioFrame inventarioFrame = null;
-    
     
     public Principal() {
         initComponents();
@@ -38,28 +30,19 @@ public class Principal extends javax.swing.JFrame {
 
         btnGroupMain = new javax.swing.ButtonGroup();
         jPanel1 = new javax.swing.JPanel();
-        jToggleButton1 = new javax.swing.JToggleButton();
-        jToggleButton2 = new javax.swing.JToggleButton();
+        btnInventario = new javax.swing.JToggleButton();
+        btnVenta = new javax.swing.JToggleButton();
         contenedorModulos = new javax.swing.JDesktopPane();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         setSize(new java.awt.Dimension(1900, 1000));
 
-        btnGroupMain.add(jToggleButton1);
-        jToggleButton1.setText("Inventario");
-        jToggleButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jToggleButton1ActionPerformed(evt);
-            }
-        });
+        btnGroupMain.add(btnInventario);
+        btnInventario.setText("Inventario");
 
-        btnGroupMain.add(jToggleButton2);
-        jToggleButton2.setText("Venta");
-        jToggleButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jToggleButton2ActionPerformed(evt);
-            }
-        });
+        btnGroupMain.add(btnVenta);
+        btnVenta.setText("Venta");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -68,20 +51,21 @@ public class Principal extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(15, 15, 15)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jToggleButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jToggleButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btnVenta, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnInventario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(14, 14, 14)
-                .addComponent(jToggleButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnInventario, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(26, 26, 26)
-                .addComponent(jToggleButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnVenta, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        contenedorModulos.setBackground(new java.awt.Color(255, 255, 255));
         contenedorModulos.setPreferredSize(new java.awt.Dimension(1800, 900));
 
         javax.swing.GroupLayout contenedorModulosLayout = new javax.swing.GroupLayout(contenedorModulos);
@@ -119,38 +103,13 @@ public class Principal extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    //Accion del boton inventario, Activa el modulo inventario
-    private void jToggleButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton1ActionPerformed
-        if(inventarioFrame == null){
-            inventarioFrame = new InventarioFrame();
-            contenedorModulos.add(inventarioFrame);
-            inventarioFrame.setLocation(0, 0);
-            inventarioFrame.setVisible(true);
-            contenedorModulos.getDesktopManager().maximizeFrame(inventarioFrame);
-        }else{
-            contenedorModulos.getDesktopManager().maximizeFrame(inventarioFrame);
-        }
-    }//GEN-LAST:event_jToggleButton1ActionPerformed
-    //Accion del boton venta, Activa el modulo venta
-    private void jToggleButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton2ActionPerformed
-        if(ventaFrame == null){
-            ventaFrame = new VentaFrame();
-            contenedorModulos.add(ventaFrame);
-            ventaFrame.setLocation(0, 0);
-            ventaFrame.setVisible(true);
-            contenedorModulos.getDesktopManager().maximizeFrame(ventaFrame);
-        }else{
-            contenedorModulos.getDesktopManager().maximizeFrame(ventaFrame);
-        }
-    }//GEN-LAST:event_jToggleButton2ActionPerformed
-
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup btnGroupMain;
-    private javax.swing.JDesktopPane contenedorModulos;
+    public javax.swing.JToggleButton btnInventario;
+    public javax.swing.JToggleButton btnVenta;
+    public javax.swing.JDesktopPane contenedorModulos;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JToggleButton jToggleButton1;
-    private javax.swing.JToggleButton jToggleButton2;
     // End of variables declaration//GEN-END:variables
 }

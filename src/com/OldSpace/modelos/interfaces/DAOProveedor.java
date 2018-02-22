@@ -14,4 +14,6 @@ import com.OldSpace.modelos.pojos.Proveedor;
  */
 public interface DAOProveedor {
     public abstract List<Proveedor> listarProveedores();
+    
+    public abstract short insertarProveedor(Proveedor proveedor);
 }

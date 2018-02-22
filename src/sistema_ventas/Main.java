@@ -7,8 +7,11 @@ package sistema_ventas;
 
 import com.OldSpace.gui.frame.Login;
 import com.OldSpace.controlador.ControladorLogin;
+import com.OldSpace.controlador.ControladorPrincipal;
+import com.OldSpace.gui.frame.Principal;
 import com.OldSpace.modelos.dao.DAOUsuarioImpl;
 import com.OldSpace.modelos.interfaces.DAOUsuario;
+import javax.swing.UIManager;
 
 /**
  *
@@ -16,8 +19,18 @@ import com.OldSpace.modelos.interfaces.DAOUsuario;
  */
 public class Main {
     public static void main(String[] args) {
-        DAOUsuario dao = DAOUsuarioImpl.getInstancia();
-        Login login = new Login();
-        ControladorLogin ctrLogin = new ControladorLogin(login, dao);
+          try {
+		UIManager.setLookAndFeel("com.seaglasslookandfeel.SeaGlassLookAndFeel");
+            } catch (Exception e) {
+                    e.printStackTrace();
+            }  
+//        
+        
+//        DAOUsuario dao = DAOUsuarioImpl.getInstancia();
+//        Login login = new Login();
+//        ControladorLogin ctrLogin = new ControladorLogin(login, dao);
+////
+          Principal principal = new Principal();
+          ControladorPrincipal ctrPrincipal = new ControladorPrincipal(principal);
     }
 }

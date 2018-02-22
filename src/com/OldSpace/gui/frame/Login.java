@@ -5,6 +5,10 @@
  */
 package com.OldSpace.gui.frame;
 
+import javax.swing.JPasswordField;
+import javax.swing.JTextField;
+import principal.MaterialTextField;
+
 /**
  *
  * @author YonattanVisita
@@ -14,9 +18,9 @@ public class Login extends javax.swing.JFrame {
     /**
      * Creates new form Login
      */
+    
     public Login() {
         initComponents();
-        
         setLocationRelativeTo(null);
         
     }
@@ -34,11 +38,9 @@ public class Login extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        btnIngresar = new javax.swing.JButton();
-        txtUser = new javax.swing.JTextField();
-        jSeparator1 = new javax.swing.JSeparator();
-        jSeparator2 = new javax.swing.JSeparator();
-        txtPassword = new javax.swing.JPasswordField();
+        txtUser = new principal.MaterialTextField();
+        btnIngresar = new principal.MaterialButton();
+        txtPassword = new principal.MaterialPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(103, 58, 183));
@@ -51,46 +53,38 @@ public class Login extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Trebuchet MS", 0, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(0, 0, 0));
         jLabel1.setText("Sistema Ventas");
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 30, -1, -1));
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 60, -1, -1));
 
         jLabel2.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(0, 0, 0));
         jLabel2.setText("Usuario");
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 110, -1, -1));
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 150, -1, -1));
 
         jLabel3.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(0, 0, 0));
         jLabel3.setText("Clave");
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 150, -1, -1));
-
-        btnIngresar.setBackground(new java.awt.Color(83, 109, 254));
-        btnIngresar.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
-        btnIngresar.setForeground(new java.awt.Color(0, 0, 0));
-        btnIngresar.setText("Ingresar");
-        btnIngresar.setBorder(null);
-        btnIngresar.setBorderPainted(false);
-        btnIngresar.setFocusPainted(false);
-        jPanel1.add(btnIngresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 220, 280, 30));
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 210, -1, -1));
 
         txtUser.setBackground(new java.awt.Color(103, 58, 183));
         txtUser.setForeground(new java.awt.Color(255, 255, 255));
         txtUser.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txtUser.setBorder(null);
-        jPanel1.add(txtUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 110, 150, -1));
+        txtUser.setDisabledTextColor(new java.awt.Color(255, 255, 255));
+        txtUser.setFont(new java.awt.Font("Verdana", 0, 16)); // NOI18N
+        jPanel1.add(txtUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 140, 190, 30));
 
-        jSeparator1.setBackground(new java.awt.Color(83, 109, 254));
-        jPanel1.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 130, 150, -1));
-
-        jSeparator2.setBackground(new java.awt.Color(83, 109, 254));
-        jPanel1.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 170, 150, -1));
+        btnIngresar.setBackground(new java.awt.Color(83, 109, 254));
+        btnIngresar.setForeground(new java.awt.Color(0, 0, 0));
+        btnIngresar.setText("Ingresar");
+        jPanel1.add(btnIngresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 270, 290, 40));
 
         txtPassword.setBackground(new java.awt.Color(103, 58, 183));
         txtPassword.setForeground(new java.awt.Color(255, 255, 255));
         txtPassword.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txtPassword.setBorder(null);
-        jPanel1.add(txtPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 150, 150, -1));
+        txtPassword.setDisabledTextColor(new java.awt.Color(255, 255, 255));
+        txtPassword.setFont(new java.awt.Font("Verdana", 0, 16)); // NOI18N
+        jPanel1.add(txtPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 200, 190, 30));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 356, 311));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 380, 400));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -98,14 +92,12 @@ public class Login extends javax.swing.JFrame {
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    public javax.swing.JButton btnIngresar;
+    public principal.MaterialButton btnIngresar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JSeparator jSeparator2;
-    public javax.swing.JPasswordField txtPassword;
-    public javax.swing.JTextField txtUser;
+    public principal.MaterialPasswordField txtPassword;
+    public principal.MaterialTextField txtUser;
     // End of variables declaration//GEN-END:variables
 }
