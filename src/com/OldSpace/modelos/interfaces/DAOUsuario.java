@@ -5,12 +5,12 @@
  */
 package com.OldSpace.modelos.interfaces;
 
-import com.OldSpace.modelos.pojos.Usuario;
+import com.OldSpace.modelos.beans.Usuario;
 
 /**
  *
  * @author YonattanVisita
  */
 public interface DAOUsuario {
-    public abstract Usuario autenticar(String _usuario, String _password);
+    public abstract Usuario autenticarUsuario(Usuario usuario);
 }

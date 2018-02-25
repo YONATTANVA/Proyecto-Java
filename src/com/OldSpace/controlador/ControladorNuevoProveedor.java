@@ -5,9 +5,10 @@
  */
 package com.OldSpace.controlador;
 
+import com.OldSpace.excepciones.MensajesPersonalizados;
 import com.OldSpace.gui.dialog.NuevoProveedor;
 import com.OldSpace.modelos.interfaces.DAOProveedor;
-import com.OldSpace.modelos.pojos.Proveedor;
+import com.OldSpace.modelos.beans.Proveedor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JDialog;
@@ -18,16 +19,17 @@ import javax.swing.JOptionPane;
  * @author YonattanVisita
  */
 public class ControladorNuevoProveedor implements ActionListener{
+    
     private NuevoProveedor vnuNuevoProveedor = null;
     private DAOProveedor dao = null;
     private Proveedor proveedor = null;
     
-    public ControladorNuevoProveedor(NuevoProveedor _vnuNuevoProveedor, DAOProveedor _dao){
-        this.vnuNuevoProveedor = _vnuNuevoProveedor;
-        this.dao = _dao;
+    public ControladorNuevoProveedor(NuevoProveedor vnuNuevoProveedor, DAOProveedor dao){
+        this.vnuNuevoProveedor = vnuNuevoProveedor;
+        this.dao = dao;
         this.vnuNuevoProveedor.btnSave.addActionListener(this);
         this.vnuNuevoProveedor.btnCancel.addActionListener(this);
-        inicializarNuevoProveedor();
+        this.inicializarNuevoProveedor();
     }
 
     private void inicializarNuevoProveedor() {
@@ -52,13 +54,13 @@ public class ControladorNuevoProveedor implements ActionListener{
             
             idProveedor = dao.insertarProveedor(proveedor);
             if(idProveedor != 0){
-                JOptionPane.showMessageDialog(vnuNuevoProveedor, "Se registro con exito el proveedor con codigo: " + idProveedor);
+                MensajesPersonalizados.mostrarValidacionCorrecta("Se registro con exito el proveedor con codigo: " + idProveedor, vnuNuevoProveedor);
             }else{
-                JOptionPane.showMessageDialog(vnuNuevoProveedor, "Error al intentar registrar un proveedor");
+                MensajesPersonalizados.mostrarErrorValidacion("", vnuNuevoProveedor);
             }
         }
         if(e.getSource() == vnuNuevoProveedor.btnCancel){
-            this.vnuNuevoProveedor.dispose();
+            vnuNuevoProveedor.dispose();
         }
     }
 }

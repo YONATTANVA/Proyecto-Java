@@ -3,13 +3,15 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.OldSpace.modelos.pojos;
+package com.OldSpace.modelos.beans;
+
+import java.io.Serializable;
 
 /**
  *
  * @author YonattanVisita
  */
-public class Cliente {
+public class Cliente implements Serializable{
     private short idCliente;
     private String nombres;
     private String apellidoP;
@@ -18,6 +20,7 @@ public class Cliente {
     private String telefono;
     private String direccion;
     private short idUsuario;
+    private String usuario;
 
     public short getIdCliente() {
         return idCliente;
@@ -81,6 +84,14 @@ public class Cliente {
 
     public void setIdUsuario(short idUsuario) {
         this.idUsuario = idUsuario;
+    }
+
+    public String getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(String usuario) {
+        this.usuario = usuario;
     }
     
 }

@@ -5,10 +5,6 @@
  */
 package com.OldSpace.gui.internalFrame;
 
-import com.OldSpace.gui.dialog.NuevaCategoria;
-import com.OldSpace.gui.dialog.NuevoProveedor;
-import javax.swing.JDialog;
-
 /**
  *
  * @author YonattanVisita
@@ -46,7 +42,7 @@ public class Inventario extends javax.swing.JInternalFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tblListProducts = new javax.swing.JTable();
         lblImage = new javax.swing.JLabel();
-        btnUpdateProduct = new javax.swing.JButton();
+        dddd = new javax.swing.JButton();
         btnDeleteProduct = new javax.swing.JButton();
         btnAddStock = new javax.swing.JButton();
         txtAddStock = new javax.swing.JTextField();
@@ -64,7 +60,11 @@ public class Inventario extends javax.swing.JInternalFrame {
         btnNewProduct = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         btnNewCategory = new javax.swing.JButton();
+        btnUpdateProduct = new principal.MaterialButton();
 
+        setBackground(new java.awt.Color(255, 102, 102));
+        setBorder(null);
+        setResizable(true);
         setTitle("Invetario");
         setMaximumSize(new java.awt.Dimension(1400, 600));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -109,9 +109,9 @@ public class Inventario extends javax.swing.JInternalFrame {
         });
         getContentPane().add(lblImage, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 160, 186, 138));
 
-        btnUpdateProduct.setText("Modificar Producto");
-        btnUpdateProduct.setToolTipText("");
-        getContentPane().add(btnUpdateProduct, new org.netbeans.lib.awtextra.AbsoluteConstraints(746, 344, -1, -1));
+        dddd.setText("Modificar Producto");
+        dddd.setToolTipText("");
+        getContentPane().add(dddd, new org.netbeans.lib.awtextra.AbsoluteConstraints(746, 344, -1, -1));
 
         btnDeleteProduct.setText("Eliminar Producto");
         getContentPane().add(btnDeleteProduct, new org.netbeans.lib.awtextra.AbsoluteConstraints(746, 388, 138, -1));
@@ -227,6 +227,14 @@ public class Inventario extends javax.swing.JInternalFrame {
 
         getContentPane().add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 10, 130, 110));
 
+        btnUpdateProduct.setBackground(new java.awt.Color(0, 51, 153));
+        btnUpdateProduct.setBorder(null);
+        btnUpdateProduct.setForeground(new java.awt.Color(255, 255, 255));
+        btnUpdateProduct.setText("Modificar Producto");
+        btnUpdateProduct.setBorderPainted(false);
+        btnUpdateProduct.setContentAreaFilled(false);
+        getContentPane().add(btnUpdateProduct, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 290, 180, 40));
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
@@ -237,11 +245,7 @@ public class Inventario extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_lblImageMouseClicked
 
     private void tblListProductsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblListProductsMouseClicked
-        
-        int fila = tblListProducts.getSelectedRow();
-        //JOptionPane.showMessageDialog(this, modeloTabla.getValueAt(fila, 0));
-        
-        
+       
     }//GEN-LAST:event_tblListProductsMouseClicked
 
 
@@ -254,7 +258,8 @@ public class Inventario extends javax.swing.JInternalFrame {
     public javax.swing.JButton btnNewProvider;
     public javax.swing.JButton btnNexPage;
     public javax.swing.JButton btnStarPage;
-    public javax.swing.JButton btnUpdateProduct;
+    public principal.MaterialButton btnUpdateProduct;
+    public javax.swing.JButton dddd;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

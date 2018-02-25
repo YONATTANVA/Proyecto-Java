@@ -5,12 +5,14 @@
  */
 package com.OldSpace.modelos.dao;
 
-import com.OldSpace.excepciones.Personalizado;
+import com.OldSpace.excepciones.MensajesPersonalizados;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
 
@@ -21,24 +23,26 @@ import java.sql.SQLException;
 public class DAO {
     private String bd = "db_sistema_ventas";
     private String server = "127.0.0.1:5432";
-    private String user = "postgres";
+    private String user = "yonattan";
     private String password = "123";
+    private Connection cn = null;
     
     public Connection conectar(){
-        Connection cn = null;
         try {
-            //Class.forName("org.postgresql.Driver");
+            Class.forName("org.postgresql.Driver");
             cn = DriverManager.getConnection("jdbc:postgresql://" + server + "/" + bd, user, password);
         } catch (SQLException ex) {
-            Personalizado.mostrarError(ex.toString());
-        } 
+            MensajesPersonalizados.mostrarErrorException(ex.toString());
+        } catch (ClassNotFoundException ex) { 
+            MensajesPersonalizados.mostrarErrorException(ex.toString());
+        }
         return cn;
     }
     
-    public void cerrar(PreparedStatement pst, ResultSet rs, Connection cn){
+    public void cerrar(PreparedStatement ps, ResultSet rs, Connection cn){
         try {
-            if(pst != null){
-                pst.close();
+            if(ps != null){
+                ps.close();
             }
             if(rs != null){
                 rs.close();
@@ -47,7 +51,7 @@ public class DAO {
                 cn.close();
             }
         } catch (Exception e) {
-            Personalizado.mostrarError(e.toString());
+            MensajesPersonalizados.mostrarErrorException(e.toString());
         }
     }
 }

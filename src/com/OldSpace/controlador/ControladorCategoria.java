@@ -5,9 +5,10 @@
  */
 package com.OldSpace.controlador;
 
+import com.OldSpace.excepciones.MensajesPersonalizados;
 import com.OldSpace.gui.dialog.NuevaCategoria;
 import com.OldSpace.modelos.interfaces.DAOCategoria;
-import com.OldSpace.modelos.pojos.Categoria;
+import com.OldSpace.modelos.beans.Categoria;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JDialog;
@@ -23,12 +24,12 @@ public class ControladorCategoria implements ActionListener{
     private DAOCategoria dao = null;
     private Categoria categoria = null;
     
-    public ControladorCategoria(NuevaCategoria _vNuevaCategoria, DAOCategoria _dao){
-        this.vNuevaCategoria = _vNuevaCategoria;
-        this.dao = _dao;
+    public ControladorCategoria(NuevaCategoria vNuevaCategoria, DAOCategoria dao){
+        this.vNuevaCategoria = vNuevaCategoria;
+        this.dao = dao;
         this.vNuevaCategoria.btnSave.addActionListener(this);
         this.vNuevaCategoria.btnCancel.addActionListener(this);
-        inicializarNuevaCategoria();
+        this.inicializarNuevaCategoria();
     }
     
     private void inicializarNuevaCategoria(){
@@ -47,9 +48,9 @@ public class ControladorCategoria implements ActionListener{
             categoria.setIdUsuario((short)3);
             idCategoria = dao.insertarCategoria(categoria);
             if(idCategoria != 0){
-                JOptionPane.showMessageDialog(vNuevaCategoria,"Se registro con exito la categoria con Codigo: " + idCategoria);
+                MensajesPersonalizados.mostrarValidacionCorrecta("Se registro con exito la categoria con Codigo: ", vNuevaCategoria);
             }else{
-                JOptionPane.showMessageDialog(vNuevaCategoria,"Error al intentar registrar una categoria");
+                MensajesPersonalizados.mostrarErrorValidacion("", vNuevaCategoria);
             }
         }
         if(e.getSource() == vNuevaCategoria.btnCancel){

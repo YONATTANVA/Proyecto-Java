@@ -44,6 +44,8 @@ public class Venta extends javax.swing.JInternalFrame {
         jPanel2 = new javax.swing.JPanel();
         lblImage = new javax.swing.JLabel();
 
+        setBackground(new java.awt.Color(255, 0, 51));
+        setBorder(null);
         setTitle("Venta");
 
         tblListArticles.setModel(new javax.swing.table.DefaultTableModel(
@@ -93,7 +95,7 @@ public class Venta extends javax.swing.JInternalFrame {
                     .addComponent(txtPayWith)
                     .addComponent(jLabel3)
                     .addComponent(lblFinalPrice, javax.swing.GroupLayout.DEFAULT_SIZE, 309, Short.MAX_VALUE))
-                .addContainerGap(30, Short.MAX_VALUE))
+                .addContainerGap(32, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

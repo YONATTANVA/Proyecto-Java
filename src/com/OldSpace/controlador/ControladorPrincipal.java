@@ -22,18 +22,18 @@ public class ControladorPrincipal implements ActionListener{
     private Principal principal = null;
     private JDesktopPane contenedor = null;
     
-    Venta ventaFrame = null;
-    Inventario inventarioFrame = null;
+    private Venta ventaFrame = null;
+    private Inventario inventarioFrame = null;
     
-    public ControladorPrincipal(Principal _principal){
-        this.principal = _principal;
-        this.contenedor = _principal.contenedorModulos;
+    public ControladorPrincipal(Principal principal){
+        this.principal = principal;
+        contenedor = this.principal.contenedorModulos;
         this.principal.btnInventario.addActionListener(this);
         this.principal.btnVenta.addActionListener(this);
-        inicializarPrincipal();
+        this.inicializarPrincipal();
     }
     private void inicializarPrincipal() {
-        this.principal.setVisible(true);
+        principal.setVisible(true);
       
     }
     
@@ -56,6 +56,7 @@ public class ControladorPrincipal implements ActionListener{
                 ventaFrame = new Venta();
                 contenedor.add(ventaFrame);
                 ventaFrame.setLocation(0, 0);
+                ((javax.swing.plaf.basic.BasicInternalFrameUI)ventaFrame.getUI()).setNorthPane(null);
                 ventaFrame.setVisible(true);
                 contenedor.getDesktopManager().maximizeFrame(ventaFrame);
             }else{

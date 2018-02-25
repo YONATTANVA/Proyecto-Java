@@ -6,7 +6,7 @@
 package com.OldSpace.modelos.interfaces;
 
 import java.util.List;
-import com.OldSpace.modelos.pojos.Producto;
+import com.OldSpace.modelos.beans.Producto;
 
 /**
  *
@@ -16,7 +16,11 @@ public interface DAOProducto {
     
     public abstract List<Producto> listarTodosProductos(String _filtro);
     
-    public abstract List<Producto> listarTodosProductos(short _categoria);
+    public abstract List<Producto> listarTodosProductos(Producto producto);
     
     public short insertarProducto(Producto producto);
+    
+    public short actualizarProducto(Producto producto);
+    
+    public short eliminarProducto(Producto producto);
 }

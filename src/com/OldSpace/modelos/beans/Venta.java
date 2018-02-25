@@ -3,21 +3,24 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.OldSpace.modelos.pojos;
+package com.OldSpace.modelos.beans;
 
-import java.util.Calendar;
-
+import java.io.Serializable;
 /**
  *
  * @author YonattanVisita
  */
-public class Venta {
+public class Venta implements Serializable{
     private short idVenta;
     private String fecha;
     private String cliente;
     private String usuario;
     private String formaPago;
     private String estado;
+    private short idUsuario;
+    private short idCliente;
+    private short idFormaPago;
+    private short idEstado;
 
     public short getIdVenta() {
         return idVenta;
@@ -65,5 +68,37 @@ public class Venta {
 
     public void setEstado(String estado) {
         this.estado = estado;
+    }
+
+    public short getIdCliente() {
+        return idCliente;
+    }
+
+    public void setIdCliente(short idCliente) {
+        this.idCliente = idCliente;
+    }
+
+    public short getIdFormaPago() {
+        return idFormaPago;
+    }
+
+    public void setIdFormaPago(short idFormaPago) {
+        this.idFormaPago = idFormaPago;
+    }
+
+    public short getIdEstado() {
+        return idEstado;
+    }
+
+    public void setIdEstado(short idEstado) {
+        this.idEstado = idEstado;
+    }
+
+    public short getIdUsuario() {
+        return idUsuario;
+    }
+
+    public void setIdUsuario(short idUsuario) {
+        this.idUsuario = idUsuario;
     }
 }

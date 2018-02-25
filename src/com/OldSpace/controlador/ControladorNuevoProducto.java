@@ -5,13 +5,14 @@
  */
 package com.OldSpace.controlador;
 
+import com.OldSpace.excepciones.MensajesPersonalizados;
 import com.OldSpace.gui.dialog.NuevaCategoria;
 import com.OldSpace.gui.dialog.NuevoProducto;
 import com.OldSpace.modelos.dao.DAOCategoriaImpl;
 import com.OldSpace.modelos.interfaces.DAOCategoria;
 import com.OldSpace.modelos.interfaces.DAOProducto;
-import com.OldSpace.modelos.pojos.Categoria;
-import com.OldSpace.modelos.pojos.Producto;
+import com.OldSpace.modelos.beans.Categoria;
+import com.OldSpace.modelos.beans.Producto;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
@@ -29,19 +30,19 @@ public class ControladorNuevoProducto implements ActionListener{
     private DAOProducto dao = null;
     private DefaultComboBoxModel<Categoria> modeloComboCat = null;
     
-    public ControladorNuevoProducto(NuevoProducto _vNuevoProducto, DAOProducto _dao){
-        this.vNuevoProducto = _vNuevoProducto;
-        this.dao = _dao;
+    public ControladorNuevoProducto(NuevoProducto vNuevoProducto, DAOProducto dao){
+        this.vNuevoProducto = vNuevoProducto;
+        this.dao = dao;
         this.vNuevoProducto.btnSave.addActionListener(this);
         this.vNuevoProducto.btnCancel.addActionListener(this);
         this.vNuevoProducto.btnNewCategory.addActionListener(this);
         modeloComboCat = new DefaultComboBoxModel<>();
-        inicializarNuevoProducto();
+        this.inicializarNuevoProducto();
     }
     
     private void inicializarNuevoProducto() {
         vNuevoProducto.cbCategory.setModel(modeloComboCat);
-        cargarModeloComboCat();
+        this.cargarModeloComboCat();
         vNuevoProducto.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
         vNuevoProducto.setAlwaysOnTop(true);
         vNuevoProducto.setLocationRelativeTo(null);
@@ -57,7 +58,7 @@ public class ControladorNuevoProducto implements ActionListener{
             ControladorCategoria ctrNuevCategoria = new ControladorCategoria(modal, dao);
         }
         if(e.getSource() == vNuevoProducto.btnCancel){
-            this.vNuevoProducto.dispose();
+            vNuevoProducto.dispose();
         }
         if(e.getSource() == vNuevoProducto.btnSave){
             short idProducto;
@@ -67,13 +68,13 @@ public class ControladorNuevoProducto implements ActionListener{
             producto.setPrecio(Float.parseFloat(vNuevoProducto.txtPrice.getText()));
             producto.setStock(Short.parseShort(vNuevoProducto.txtStock.getText()));
             producto.setIdCategoria(cat.getIdCategoria());
-            producto.setUsuario((short)2);
+            producto.setIdUsuario((short)2);
             
             idProducto = dao.insertarProducto(producto);
             if(idProducto != 0){
-                JOptionPane.showMessageDialog(vNuevoProducto, "Se ingreso un producto con el Codigo: " + idProducto);
+                MensajesPersonalizados.mostrarValidacionCorrecta("Se ingreso un producto con el Codigo: "+ idProducto, vNuevoProducto);
             }else{
-                JOptionPane.showMessageDialog(vNuevoProducto, "Error al intentar registrar un producto");
+                MensajesPersonalizados.mostrarErrorValidacion("", vNuevoProducto);
             }
         }
     }

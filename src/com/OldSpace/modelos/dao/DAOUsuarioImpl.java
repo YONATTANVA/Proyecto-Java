@@ -5,65 +5,61 @@
  */
 package com.OldSpace.modelos.dao;
 
-import com.OldSpace.excepciones.Personalizado;
-import java.sql.Connection;
+import com.OldSpace.excepciones.MensajesPersonalizados;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import com.OldSpace.modelos.interfaces.DAOUsuario;
-import com.OldSpace.modelos.pojos.Usuario;
+import com.OldSpace.modelos.beans.Usuario;
 
 /**
  *
  * @author YonattanVisita
  */
-public class DAOUsuarioImpl extends DAO implements DAOUsuario{
+public final class DAOUsuarioImpl extends DAO implements DAOUsuario{
+    private final String VALIDACION_LOGIN = "SELECT id_usuario,nombre,perfil FROM autenticar(?,?)";
+    
     private PreparedStatement ps = null;
     private ResultSet rs = null;
-    private static DAOUsuarioImpl instancia = null;
     
-    private final String VALIDACION_LOGIN = "SELECT id_usuario,nombre,perfil FROM autenticar(?,?)";
+    private final static DAOUsuarioImpl INSTANCIA = new DAOUsuarioImpl();
+    
+    private Usuario usuario = null;
+    
     
     private DAOUsuarioImpl(){
         
     }
     
     public static DAOUsuarioImpl getInstancia(){
-        if(instancia == null){
-            instancia = new DAOUsuarioImpl();
-        }
-        return instancia;
+        return INSTANCIA;
     }
     
     
     @Override
-    public Usuario autenticar(String _usuario, String _password) {
-        Usuario usuario = null;
+    public Usuario autenticarUsuario(Usuario usuario) {
         try {
             ps = conectar().prepareStatement(VALIDACION_LOGIN);
-            ps.setString(1, _usuario);
-            ps.setString(2, _password);
+            ps.setString(1, usuario.getNombre());
+            ps.setString(2, usuario.getClave());
             rs = ps.executeQuery();
             if(rs.next()){
-                usuario = convertir(rs);
+                this.usuario = this.convertir(rs);
             }
         } catch (SQLException ex) {
-            Personalizado.mostrarError(ex.toString());
+            MensajesPersonalizados.mostrarErrorException(ex.toString());
         }
-        return usuario;
+        return this.usuario;
     }
 
     private Usuario convertir(ResultSet rs) {
-        Usuario usuario = null;
         try {
             usuario = new Usuario();
             usuario.setIdPsuario(rs.getShort("id_usuario"));
             usuario.setNombre(rs.getString("nombre"));
             usuario.setPerfil(rs.getString("perfil"));
         } catch (SQLException ex) {
-            Personalizado.mostrarError(ex.toString());
+            MensajesPersonalizados.mostrarErrorException(ex.toString());
         }
         return usuario;
     }

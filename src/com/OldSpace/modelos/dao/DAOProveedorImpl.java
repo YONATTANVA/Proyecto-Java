@@ -5,7 +5,7 @@
  */
 package com.OldSpace.modelos.dao;
 
-import com.OldSpace.excepciones.Personalizado;
+import com.OldSpace.excepciones.MensajesPersonalizados;
 import com.OldSpace.modelos.interfaces.DAOProveedor;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -13,48 +13,44 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import com.OldSpace.modelos.pojos.Proveedor;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import com.OldSpace.modelos.beans.Proveedor;
 
 /**
  *
  * @author YonattanVisita
  */
-public class DAOProveedorImpl extends DAO implements DAOProveedor{
+public final class DAOProveedorImpl extends DAO implements DAOProveedor{
 
+    final String CONSULTAR_PROVEEDORES = "SELECT id_proveedor,nombre_contacto,telefono,email,nombre_empresa,ruc,direccion,id_usuario,usuario FROM consultar_proveedores()";
+    final String INSERTAR_PROVEEDOR = "SELECT insertar_proveedor(?,?,?,?,?,?,?)";
+    
     private Connection cn = null;
     private PreparedStatement ps = null;
     private ResultSet rs = null;
     
-    final String CONSULTAR_PROVEEDORES = "SELECT id_proveedor,nombre_contacto,telefono,email,nombre_empresa,ruc,direccion FROM consultar_proveedores()";
-    final String INSERTAR_PROVEEDOR = "SELECT insertar_proveedor(?,?,?,?,?,?,?)";
+    private final static DAOProveedorImpl INSTANCIA = new DAOProveedorImpl();
     
-    private static DAOProveedorImpl instancia = null;
+    private Proveedor proveedor = null;
+    private List<Proveedor> listaProve = null;
     
     private DAOProveedorImpl(){
         
     }
     
     public static DAOProveedorImpl getInstancia(){
-        if(instancia == null){
-            instancia = new DAOProveedorImpl();
-        }
-        return instancia;
+        return INSTANCIA;
     }
     
     
     @Override
     public List<Proveedor> listarProveedores() {
-        List<Proveedor> listaProve = null;
-        
         try {
             listaProve = new ArrayList<>();
             cn = conectar();
             ps = cn.prepareStatement(CONSULTAR_PROVEEDORES);
             rs = ps.executeQuery();
             while(rs.next()){
-                listaProve.add(convertir(rs));
+                listaProve.add(this.convertir(rs));
             }
         } catch (SQLException ex) {
             System.out.println(ex.toString());
@@ -65,15 +61,14 @@ public class DAOProveedorImpl extends DAO implements DAOProveedor{
     }
 
     private Proveedor convertir(ResultSet rs) {
-        Proveedor pro = null;
         try {
-            pro = new Proveedor();
-            pro.setIdProveedor(rs.getShort("id_proveedor"));
-            pro.setNombreContacto(rs.getString("nombre_contacto"));
+            proveedor = new Proveedor();
+            proveedor.setIdProveedor(rs.getShort("id_proveedor"));
+            proveedor.setNombreContacto(rs.getString("nombre_contacto"));
         } catch (SQLException ex) {
             System.out.println(ex.toString());
         }
-        return pro;
+        return proveedor;
     }
 
     @Override
@@ -94,11 +89,10 @@ public class DAOProveedorImpl extends DAO implements DAOProveedor{
                 idProveedor = rs.getShort(1);
             }
         } catch (SQLException ex) {
-            Personalizado.mostrarError(ex.toString());
+            MensajesPersonalizados.mostrarErrorException(ex.toString());
         }finally{
             cerrar(ps, rs, cn);
         }
-        
         return idProveedor;
     }
 

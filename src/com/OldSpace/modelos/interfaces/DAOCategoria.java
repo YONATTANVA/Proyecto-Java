@@ -6,7 +6,7 @@
 package com.OldSpace.modelos.interfaces;
 
 import java.util.List;
-import com.OldSpace.modelos.pojos.Categoria;
+import com.OldSpace.modelos.beans.Categoria;
 
 /**
  *

@@ -18,9 +18,9 @@ import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
-import com.OldSpace.modelos.pojos.Categoria;
-import com.OldSpace.modelos.pojos.Producto;
-import com.OldSpace.modelos.pojos.Proveedor;
+import com.OldSpace.modelos.beans.Categoria;
+import com.OldSpace.modelos.beans.Producto;
+import com.OldSpace.modelos.beans.Proveedor;
 
 /**
  *
