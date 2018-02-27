@@ -17,13 +17,15 @@ import com.OldSpace.modelos.interfaces.DAOCategoria;
 import com.OldSpace.modelos.interfaces.DAOProducto;
 import com.OldSpace.modelos.interfaces.DAOProveedor;
 import com.OldSpace.modelos.beans.Producto;
-import java.awt.Window;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.event.WindowAdapter;
 import java.util.Arrays;
 import java.util.List;
 import javax.swing.JInternalFrame;
@@ -51,7 +53,7 @@ public class ControladorInventario implements ActionListener,KeyListener,MouseLi
         this.dao = dao;
         this.vInventario.btnAddStock.addActionListener(this);
         this.vInventario.btnDeleteProduct.addActionListener(this);
-        this.vInventario.dddd.addActionListener(this);
+        this.vInventario.btnUpdateProduct.addActionListener(this);
         this.vInventario.btnNewProduct.addActionListener(this);
         this.vInventario.btnNewProvider.addActionListener(this);
         this.vInventario.btnNewCategory.addActionListener(this);
@@ -66,66 +68,26 @@ public class ControladorInventario implements ActionListener,KeyListener,MouseLi
     
     
     private void inicializarInventario() {
+        this.desabilitarBotonesTabla();
+        //long inicio = System.nanoTime();
         ((javax.swing.plaf.basic.BasicInternalFrameUI)vInventario.getUI()).setNorthPane(null);
         daoP =(DAOProductoImpl)dao;
         paginaConsulta = 1;
-        columnasTabla = new Object[]{"Codigo","Nombre","Precio","Stock","Categoria"};
-        modeloTabla = new GenericDomainTableModel<Producto>(Arrays.asList(columnasTabla)) {
-            @Override
-            public Class<?> getColumnClass(int columnIndex) {
-                switch(columnIndex){
-                    case 0 : return Short.class;
-                    case 1 : return String.class;
-                    case 2 : return Float.class;
-                    case 3 : return Short.class;
-                    case 4 : return String.class;
-                }
-                throw new ArrayIndexOutOfBoundsException(columnIndex);
-            }
-            
-            @Override
-            public Object getValueAt(int rowIndex, int columnIndex) {
-                producto = getDomainObject(rowIndex);
-                switch(columnIndex){
-                    case 0 : return producto.getIdProducto();
-                    case 1 : return producto.getNombre();
-                    case 2 : return producto.getPrecio();
-                    case 3 : return producto.getStock();
-                    case 4 : return producto.getCategoria();
-                    default: throw new ArrayIndexOutOfBoundsException(columnIndex);
-                }
-            }
-            
-            @Override
-            public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
-                producto = getDomainObject(rowIndex);
-                switch(columnIndex){
-                    case 0 : producto.setIdProducto((Short)aValue);
-                    break;
-                    case 1 : producto.setNombre((String)aValue);
-                    break;
-                    case 2 : producto.setPrecio((Float)aValue);
-                    break;
-                    case 3 : producto.setStock((Short)aValue);
-                    break;
-                    case 4 : producto.setCategoria((String)aValue);
-                    break;
-                    default: throw new ArrayIndexOutOfBoundsException(columnIndex);
-                }
-                notifyTableCellUpdated(rowIndex, columnIndex);
-            }
-        };
-        vInventario.tblListProducts.setModel(modeloTabla);
         vInventario.txtNumberPage.setText(String.valueOf(this.paginaConsulta));
         vInventario.setLocation(0, 0);
         vInventario.setVisible(true);
-        this.cargarTabla("");
-        
+        this.modelarTabla();
+        this.cargarTabla(null);
+        //System.out.println(System.nanoTime() - inicio);
     }
     
-     private void cargarTabla(String _filtro){
+     private void cargarTabla(String filtro){
         modeloTabla.clearTableModelData();
-        listaProductos = dao.listarTodosProductos(_filtro);
+        if(filtro == null){
+           listaProductos = dao.listarTodosProductos();
+        }else{
+           listaProductos = dao.listarTodosProductos(filtro);
+        }
         modeloTabla.addRows(listaProductos);
     }
     
@@ -136,68 +98,85 @@ public class ControladorInventario implements ActionListener,KeyListener,MouseLi
             NuevoProducto modal = new NuevoProducto(null, true);
             DAOProducto dao = DAOProductoImpl.getInstancia();
             ControladorNuevoProducto ctrNuevoProducto = new ControladorNuevoProducto(modal, dao);
+            this.desabilitarBotonesTabla();
+            producto = null;
+            this.limpiarCampos();
+            this.cargarTabla(null);
+            
         }
         if(e.getSource() == vInventario.btnNewCategory){
             NuevaCategoria modal = new NuevaCategoria(null, true);
             DAOCategoria dao = DAOCategoriaImpl.getInstancia();
-            ControladorCategoria ctrNuevCategoria = new ControladorCategoria(modal, dao);
+            ControladorNuevaCategoria ctrNuevCategoria = new ControladorNuevaCategoria(modal, dao);
+            this.desabilitarBotonesTabla();
+            producto = null;
+            this.limpiarCampos();
+            this.cargarTabla(null);
         }
         if(e.getSource() == vInventario.btnNewProvider){
             NuevoProveedor modal = new NuevoProveedor(null, true);
             DAOProveedor dao = DAOProveedorImpl.getInstancia();
             ControladorNuevoProveedor ctrNuevoProveedor = new ControladorNuevoProveedor(modal, dao);
+            this.desabilitarBotonesTabla();
+            producto = null;
+            this.limpiarCampos();
+            this.cargarTabla(null);
         }
         if(e.getSource() == vInventario.btnNexPage){
             paginaConsulta++;
             daoP.setPagina(this.paginaConsulta);
-            this.cargarTabla("");
+            this.cargarTabla(null);
             vInventario.txtNumberPage.setText(String.valueOf(this.paginaConsulta));
         }
         if(e.getSource() == vInventario.btnBackPage){
             paginaConsulta--;
             daoP.setPagina(this.paginaConsulta);
-            this.cargarTabla("");
+            this.cargarTabla(null);
             vInventario.txtNumberPage.setText(String.valueOf(this.paginaConsulta));
         }
         if(e.getSource() == vInventario.btnStarPage){
             paginaConsulta = 1;
             daoP.setPagina(this.paginaConsulta);
-            this.cargarTabla("");
+            this.cargarTabla(null);
             vInventario.txtNumberPage.setText(String.valueOf(this.paginaConsulta));
         }
         if(e.getSource() == vInventario.btnAddStock){
-            short stockActual;
-            producto = new Producto();
-            producto.setIdProducto(Short.parseShort(vInventario.txtCod.getText()));
+            short idProd;
+            int stockActual = producto.getStock();
+            int nuevoStock;
             producto.setStock(Short.parseShort(vInventario.txtAddStock.getText()));
-            stockActual = dao.actualizarProducto(producto);
-            if( stockActual >= 0 ){
-                MensajesPersonalizados.mostrarValidacionCorrecta("Stock actualizado a: " + stockActual, vInventario);
+            idProd = dao.actualizarProducto(producto);
+            if( idProd >= 0 ){
+                nuevoStock = stockActual + producto.getStock();
+                MensajesPersonalizados.mostrarValidacionCorrecta("Stock actualizado a: " + nuevoStock, vInventario);
                 this.limpiarCampos();
-                this.cargarTabla("");
+                producto = null;
+                this.desabilitarBotonesTabla();
+                this.cargarTabla(null);
             }else{
                 MensajesPersonalizados.mostrarErrorValidacion("Stock", vInventario);
             }
         }
         if(e.getSource() == vInventario.btnDeleteProduct){
-            short idPro = Short.parseShort(vInventario.txtCod.getText());
-            short stock = Short.parseShort(vInventario.txtStock.getText());
-            String pro = vInventario.txtName.getText();
-            int confirm = JOptionPane.showConfirmDialog(vInventario, "Esta seguro que desea eliminar el producto: " + pro + "\nAun cuenta con stock: " + stock, "Advertencia", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+            int confirm = JOptionPane.showConfirmDialog(vInventario, "Esta seguro que desea eliminar el producto: " + producto.getNombre() + "\nAun cuenta con stock: " + producto.getStock(), "Advertencia", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
             
             if(JOptionPane.YES_OPTION == confirm){
                 short idProducto;
-                producto = new Producto();
-                producto.setIdProducto(idPro);
                 idProducto = dao.eliminarProducto(producto);
                 if(idProducto > 0){
                     MensajesPersonalizados.mostrarValidacionCorrecta("Se elimino el producto con codigo: " + idProducto, vInventario);
                     this.limpiarCampos();
-                    this.cargarTabla("");
+                    this.cargarTabla(null);
+                    producto = null;
+                    this.desabilitarBotonesTabla();
                 }else{
                     MensajesPersonalizados.mostrarErrorValidacion("", vInventario);
                 }
             }
+        }
+        
+        if(e.getSource() == vInventario.btnUpdateProduct ){
+            System.out.println(e.getActionCommand());
         }
     }
 
@@ -223,10 +202,6 @@ public class ControladorInventario implements ActionListener,KeyListener,MouseLi
     }
     
     
-   
-   
-    
-    
     private void limpiarCampos(){
         vInventario.txtCod.setText("");
         vInventario.txtName.setText("");
@@ -240,12 +215,11 @@ public class ControladorInventario implements ActionListener,KeyListener,MouseLi
     public void mouseClicked(MouseEvent e) {
         if(e.getSource() == vInventario.tblListProducts){
             int row = vInventario.tblListProducts.getSelectedRow();
-            String codigo = vInventario.tblListProducts.getValueAt(row, 0).toString();
-            String nombre = vInventario.tblListProducts.getValueAt(row, 1).toString();
-            String stock = vInventario.tblListProducts.getValueAt(row, 3).toString();
-            vInventario.txtCod.setText(codigo);
-            vInventario.txtName.setText(nombre);
-            vInventario.txtStock.setText(stock);
+            producto = modeloTabla.getDomainObject(row);
+            vInventario.txtCod.setText(String.valueOf(producto.getIdProducto()));
+            vInventario.txtName.setText(producto.getNombre());
+            vInventario.txtStock.setText(String.valueOf(producto.getStock()));
+            this.habilitarBotonesTabla();
         }
     }
 
@@ -269,7 +243,66 @@ public class ControladorInventario implements ActionListener,KeyListener,MouseLi
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
+    private void modelarTabla(){
+        columnasTabla = new Object[]{"Codigo","Nombre","Precio","Stock","Categoria"};
+        modeloTabla = new GenericDomainTableModel<Producto>(Arrays.asList(columnasTabla)) {
+            @Override
+            public Class<?> getColumnClass(int columnIndex) {
+                switch(columnIndex){
+                    case 0 : return Short.class;
+                    case 1 : return String.class;
+                    case 2 : return Float.class;
+                    case 3 : return Short.class;
+                    case 4 : return String.class;
+                }
+                throw new ArrayIndexOutOfBoundsException(columnIndex);
+            }
+            
+            @Override
+            public Object getValueAt(int rowIndex, int columnIndex) {
+                Producto producto = getDomainObject(rowIndex);
+                switch(columnIndex){
+                    case 0 : return producto.getIdProducto();
+                    case 1 : return producto.getNombre();
+                    case 2 : return producto.getPrecio();
+                    case 3 : return producto.getStock();
+                    case 4 : return producto.getCategoria();
+                    default: throw new ArrayIndexOutOfBoundsException(columnIndex);
+                }
+            }
+            
+            @Override
+            public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
+                Producto producto = getDomainObject(rowIndex);
+                switch(columnIndex){
+                    case 0 : producto.setIdProducto((Short)aValue);
+                    break;
+                    case 1 : producto.setNombre((String)aValue);
+                    break;
+                    case 2 : producto.setPrecio((Float)aValue);
+                    break;
+                    case 3 : producto.setStock((Short)aValue);
+                    break;
+                    case 4 : producto.setCategoria((String)aValue);
+                    break;
+                    default: throw new ArrayIndexOutOfBoundsException(columnIndex);
+                }
+                notifyTableCellUpdated(rowIndex, columnIndex);
+            }
+        };
+        vInventario.tblListProducts.setModel(modeloTabla);
+    }
     
     
-    
+    private void habilitarBotonesTabla(){
+        vInventario.btnAddStock.setEnabled(true);
+        vInventario.btnUpdateProduct.setEnabled(true);
+        vInventario.btnDeleteProduct.setEnabled(true);
+    }
+    private void desabilitarBotonesTabla(){
+        vInventario.btnAddStock.setEnabled(false);
+        vInventario.btnUpdateProduct.setEnabled(false);
+        vInventario.btnDeleteProduct.setEnabled(false);
+    }
+
 }

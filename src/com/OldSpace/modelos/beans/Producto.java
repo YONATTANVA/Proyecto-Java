@@ -93,4 +93,6 @@ public class Producto implements Serializable {
     public void setIdUsuario(short idUsuario) {
         this.idUsuario = idUsuario;
     }
+    
+    
 }

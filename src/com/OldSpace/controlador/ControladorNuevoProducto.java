@@ -13,6 +13,7 @@ import com.OldSpace.modelos.interfaces.DAOCategoria;
 import com.OldSpace.modelos.interfaces.DAOProducto;
 import com.OldSpace.modelos.beans.Categoria;
 import com.OldSpace.modelos.beans.Producto;
+import com.OldSpace.modelos.dao.DAOUsuarioImpl;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
@@ -52,14 +53,17 @@ public class ControladorNuevoProducto implements ActionListener{
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        
         if(e.getSource() == vNuevoProducto.btnNewCategory){
             NuevaCategoria modal = new NuevaCategoria(null, true);
             DAOCategoria dao = DAOCategoriaImpl.getInstancia();
-            ControladorCategoria ctrNuevCategoria = new ControladorCategoria(modal, dao);
+            ControladorNuevaCategoria ctrNuevCategoria = new ControladorNuevaCategoria(modal, dao);
         }
+        
         if(e.getSource() == vNuevoProducto.btnCancel){
             vNuevoProducto.dispose();
         }
+        
         if(e.getSource() == vNuevoProducto.btnSave){
             short idProducto;
             Producto producto = new Producto();
@@ -68,11 +72,12 @@ public class ControladorNuevoProducto implements ActionListener{
             producto.setPrecio(Float.parseFloat(vNuevoProducto.txtPrice.getText()));
             producto.setStock(Short.parseShort(vNuevoProducto.txtStock.getText()));
             producto.setIdCategoria(cat.getIdCategoria());
-            producto.setIdUsuario((short)2);
+            producto.setIdUsuario(DAOUsuarioImpl.getSesion().getIdUsuario());
             
             idProducto = dao.insertarProducto(producto);
             if(idProducto != 0){
                 MensajesPersonalizados.mostrarValidacionCorrecta("Se ingreso un producto con el Codigo: "+ idProducto, vNuevoProducto);
+                vNuevoProducto.dispose();
             }else{
                 MensajesPersonalizados.mostrarErrorValidacion("", vNuevoProducto);
             }

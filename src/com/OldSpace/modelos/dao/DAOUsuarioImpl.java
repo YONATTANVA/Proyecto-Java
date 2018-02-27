@@ -11,6 +11,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import com.OldSpace.modelos.interfaces.DAOUsuario;
 import com.OldSpace.modelos.beans.Usuario;
+import com.OldSpace.modelos.pojos.Sesion;
 
 /**
  *
@@ -23,6 +24,7 @@ public final class DAOUsuarioImpl extends DAO implements DAOUsuario{
     private ResultSet rs = null;
     
     private final static DAOUsuarioImpl INSTANCIA = new DAOUsuarioImpl();
+    private static Sesion sesion = null;
     
     private Usuario usuario = null;
     
@@ -34,34 +36,37 @@ public final class DAOUsuarioImpl extends DAO implements DAOUsuario{
     public static DAOUsuarioImpl getInstancia(){
         return INSTANCIA;
     }
+    public static Sesion getSesion(){
+        return sesion;
+    }
     
     
     @Override
-    public Usuario autenticarUsuario(Usuario usuario) {
+    public Sesion autenticarUsuario(Usuario usuario) {
         try {
             ps = conectar().prepareStatement(VALIDACION_LOGIN);
             ps.setString(1, usuario.getNombre());
             ps.setString(2, usuario.getClave());
             rs = ps.executeQuery();
             if(rs.next()){
-                this.usuario = this.convertir(rs);
+                sesion = this.convertir(rs);
             }
         } catch (SQLException ex) {
             MensajesPersonalizados.mostrarErrorException(ex.toString());
         }
-        return this.usuario;
+        return sesion;
     }
 
-    private Usuario convertir(ResultSet rs) {
+    private Sesion convertir(ResultSet rs) {
         try {
-            usuario = new Usuario();
-            usuario.setIdPsuario(rs.getShort("id_usuario"));
-            usuario.setNombre(rs.getString("nombre"));
-            usuario.setPerfil(rs.getString("perfil"));
+            sesion = new Sesion();
+            sesion.setIdUsuario(rs.getShort("id_usuario"));
+            sesion.setNombre(rs.getString("nombre"));
+            sesion.setPerfil(rs.getString("perfil"));
         } catch (SQLException ex) {
             MensajesPersonalizados.mostrarErrorException(ex.toString());
         }
-        return usuario;
+        return sesion;
     }
     
 }

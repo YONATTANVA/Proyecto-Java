@@ -9,6 +9,7 @@ import com.OldSpace.excepciones.MensajesPersonalizados;
 import com.OldSpace.gui.dialog.NuevaCategoria;
 import com.OldSpace.modelos.interfaces.DAOCategoria;
 import com.OldSpace.modelos.beans.Categoria;
+import com.OldSpace.modelos.dao.DAOUsuarioImpl;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JDialog;
@@ -18,13 +19,13 @@ import javax.swing.JOptionPane;
  *
  * @author YonattanVisita
  */
-public class ControladorCategoria implements ActionListener{
+public class ControladorNuevaCategoria implements ActionListener{
     
     private NuevaCategoria vNuevaCategoria = null;
     private DAOCategoria dao = null;
     private Categoria categoria = null;
     
-    public ControladorCategoria(NuevaCategoria vNuevaCategoria, DAOCategoria dao){
+    public ControladorNuevaCategoria(NuevaCategoria vNuevaCategoria, DAOCategoria dao){
         this.vNuevaCategoria = vNuevaCategoria;
         this.dao = dao;
         this.vNuevaCategoria.btnSave.addActionListener(this);
@@ -45,10 +46,11 @@ public class ControladorCategoria implements ActionListener{
             short idCategoria;
             categoria = new Categoria();
             categoria.setCategoria(vNuevaCategoria.txtName.getText());
-            categoria.setIdUsuario((short)3);
+            categoria.setIdUsuario(DAOUsuarioImpl.getSesion().getIdUsuario());
             idCategoria = dao.insertarCategoria(categoria);
             if(idCategoria != 0){
                 MensajesPersonalizados.mostrarValidacionCorrecta("Se registro con exito la categoria con Codigo: ", vNuevaCategoria);
+                vNuevaCategoria.dispose();
             }else{
                 MensajesPersonalizados.mostrarErrorValidacion("", vNuevaCategoria);
             }

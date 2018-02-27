@@ -6,6 +6,7 @@
 package com.OldSpace.excepciones;
 
 import java.awt.Component;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
 /**
@@ -34,8 +35,8 @@ public class MensajesPersonalizados {
         JOptionPane.showMessageDialog(ventana, cadena,"Error",JOptionPane.ERROR_MESSAGE);
     }
     public static void mostrarValidacionCorrecta(String mensaje, Component ventana){
-        
-        JOptionPane.showMessageDialog(ventana, mensaje,"Correcto",JOptionPane.PLAIN_MESSAGE);
+        JLabel mensajeCentrado = new JLabel(mensaje,JLabel.CENTER);
+        JOptionPane.showMessageDialog(ventana, mensajeCentrado,"Correcto",JOptionPane.PLAIN_MESSAGE);
         
     }
 }

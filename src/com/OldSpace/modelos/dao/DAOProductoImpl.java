@@ -19,7 +19,8 @@ import com.OldSpace.modelos.beans.Producto;
  * @author YonattanVisita
  */
 public final class DAOProductoImpl extends DAO implements DAOProducto{
-    final String CONSULTAR_PRODUCTOS = "SELECT id_producto,nombre,precio,stock,imagen,id_categoria,categoria,id_usuario,usuario FROM consultar_productos(?,?,?)";
+    final String CONSULTAR_PRODUCTOS = "SELECT id_producto,nombre,precio,stock,imagen,id_categoria,categoria,id_usuario,usuario FROM consultar_productos(?,?)";
+    final String CONSULTAR_PRODUCTOS_FILTRO = "SELECT id_producto,nombre,precio,stock,imagen,id_categoria,categoria,id_usuario,usuario FROM consultar_productos(?,?,?)";
     final String CONSULTAR_PRODUCTOS_CATEGORIA = "SELECT id_producto,nombre,precio,stock,imagen,id_categoria,categoria,id_usuario,nombre FROM consultar_productos_categoria(?,?,?)";
     final String INSERTAR_PRODUCTO = "SELECT insertar_producto(?,?,?,?,?,?)";
     final String ACTUALIZAR_PRODUCTO = "SELECT actualizar_producto(?,?,?,?,?,?,?)";
@@ -64,14 +65,36 @@ public final class DAOProductoImpl extends DAO implements DAOProducto{
     }
 
    
-      
-    
     @Override
-    public List<Producto> listarTodosProductos(String _filtro) {
+    public List<Producto> listarTodosProductos() {
+        //long starTime = System.nanoTime();
         try {
             productos = new ArrayList<>();
             cn = conectar();
             ps = cn.prepareStatement(CONSULTAR_PRODUCTOS);
+            ps.setShort(1, getPagina());
+            ps.setShort(2, getLimitePagina());
+            rs = ps.executeQuery();
+            while(rs.next()){
+                productos.add(this.convertir(rs));
+            }
+        } catch (SQLException ex) {
+            MensajesPersonalizados.mostrarErrorException(ex.toString());
+        }finally{
+            cerrar(ps, rs, cn);
+        }
+        //long endTime = (System.nanoTime() - starTime);
+        //System.out.println(endTime);
+        return productos;
+    }  
+    
+    @Override
+    public List<Producto> listarTodosProductos(String _filtro) {
+        //long starTime = System.nanoTime();
+        try {
+            productos = new ArrayList<>();
+            cn = conectar();
+            ps = cn.prepareStatement(CONSULTAR_PRODUCTOS_FILTRO);
             ps.setString(1, _filtro);
             ps.setShort(2, getPagina());
             ps.setShort(3, getLimitePagina());
@@ -84,6 +107,8 @@ public final class DAOProductoImpl extends DAO implements DAOProducto{
         }finally{
             cerrar(ps, rs, cn);
         }
+        //long endTime = (System.nanoTime() - starTime);
+        //System.out.println(endTime);
         return productos;
     }
     
@@ -103,11 +128,6 @@ public final class DAOProductoImpl extends DAO implements DAOProducto{
             MensajesPersonalizados.mostrarErrorException(ex.toString());
         }
         return producto;
-    }
-
-    @Override
-    public List<Producto> listarTodosProductos(Producto producto) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
@@ -172,6 +192,8 @@ public final class DAOProductoImpl extends DAO implements DAOProducto{
             }
         } catch (SQLException ex) {
             MensajesPersonalizados.mostrarErrorException(ex.toString());
+        }finally{
+            cerrar(ps, rs, cn);
         }
         return idProducto;
     }

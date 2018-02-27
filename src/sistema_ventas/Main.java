@@ -30,11 +30,11 @@ public class Main {
             }  
       
         
-//        DAOUsuario dao = DAOUsuarioImpl.getInstancia();
-//        Login login = new Login();
-//        ControladorLogin ctrLogin = new ControladorLogin(login, dao);
+        DAOUsuario dao = DAOUsuarioImpl.getInstancia();
+        Login login = new Login();
+        ControladorLogin ctrLogin = new ControladorLogin(login, dao);
            
-          Principal principal = new Principal();
-          ControladorPrincipal ctrPrincipal = new ControladorPrincipal(principal);
+//          Principal principal = new Principal();
+//          ControladorPrincipal ctrPrincipal = new ControladorPrincipal(principal);
     }
 }

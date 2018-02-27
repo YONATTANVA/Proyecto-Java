@@ -12,7 +12,6 @@ import java.io.Serializable;
  * @author YonattanVisita
  */
 public class Usuario implements Serializable{
-    private short idPsuario;
     private String nombre;
     private String clave;
     private String perfil;
@@ -20,14 +19,6 @@ public class Usuario implements Serializable{
     private short idUsuario;
     private String usuario;
     
-
-    public short getIdPsuario() {
-        return idPsuario;
-    }
-
-    public void setIdPsuario(short idPsuario) {
-        this.idPsuario = idPsuario;
-    }
 
     public String getNombre() {
         return nombre;

@@ -14,9 +14,9 @@ import com.OldSpace.modelos.beans.Producto;
  */
 public interface DAOProducto {
     
-    public abstract List<Producto> listarTodosProductos(String _filtro);
+    public abstract List<Producto> listarTodosProductos();
     
-    public abstract List<Producto> listarTodosProductos(Producto producto);
+    public abstract List<Producto> listarTodosProductos(String _filtro);
     
     public short insertarProducto(Producto producto);
     
